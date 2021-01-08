@@ -136,11 +136,11 @@ spring:
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
           # 多数据源配置
-          #multi-datasource1:
-          #url: jdbc:mysql://localhost:3306/jeecg-boot2?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
-          #username: root
-          #password: root
-          #driver-class-name: com.mysql.cj.jdbc.Driver
+        ticketapi:
+          url: jdbc:mysql://localhost:3306/ticketapi?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+          username: root
+          password: 123456
+          driver-class-name: com.mysql.cj.jdbc.Driver
   #redis 配置
   redis:
     database: 0
@@ -235,7 +235,7 @@ jeecg :
     config:
       data-id: jeecg-gateway-router
       group: DEFAULT_GROUP
-      data-type: yml
+      data-type: nacos
   #分布式锁配置
   redisson:
     address: 127.0.0.1:6379

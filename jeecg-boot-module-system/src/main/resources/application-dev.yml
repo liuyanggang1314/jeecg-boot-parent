@@ -221,7 +221,7 @@ jeecg :
     appsecret: ??
   #xxl-job配置
   xxljob:
-    enabled: false
+    enabled: true
     adminAddresses: http://127.0.0.1:9080/xxl-job-admin
     appname: ${spring.application.name}
     accessToken: ''

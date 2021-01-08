@@ -46,15 +46,45 @@
         }
       },
       {
-        "name":  "RequestRateLimiter",
-        "args":  {
-          "key-resolver":"#{@ipKeyResolver}",
-          "redis-rate-limiter.replenishRate":  20,
-          "redis-rate-limiter.burstCapacity":  20
+        "name": "RequestRateLimiter",
+        "args": {
+          "key-resolver": "#{@ipKeyResolver}",
+          "redis-rate-limiter.replenishRate": 20,
+          "redis-rate-limiter.burstCapacity": 20
         }
       }
     ],
     "uri": "lb://jeecg-demo"
+  },
+  {
+    "id": "letour-tickets",
+    "order": 1,
+    "predicates": [
+      {
+        "name": "Path",
+        "args": {
+          "_genkey_0": "/letour/**"
+        }
+      }
+    ],
+    "filters": [
+      {
+        "name": "Hystrix",
+        "args": {
+          "name": "default",
+          "fallbackUri": "forward:/demo/fallback"
+        }
+      },
+      {
+        "name": "RequestRateLimiter",
+        "args": {
+          "key-resolver": "#{@ipKeyResolver}",
+          "redis-rate-limiter.replenishRate": 20,
+          "redis-rate-limiter.burstCapacity": 20
+        }
+      }
+    ],
+    "uri": "lb://letour-tickets"
   },
   {
     "id": "jeecg-system-websocket",

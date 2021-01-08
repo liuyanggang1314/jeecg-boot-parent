@@ -406,7 +406,7 @@
           delete: "/${entityPackage}/${entityName?uncap_first}/delete",
           deleteBatch: "/${entityPackage}/${entityName?uncap_first}/deleteBatch",
           exportXlsUrl: "/${entityPackage}/${entityName?uncap_first}/exportXls",
-          importExcelUrl: "${entityPackage}/${entityName?uncap_first}/importExcel",
+          importExcelUrl: "/${entityPackage}/${entityName?uncap_first}/importExcel",
           <#if bpm_flag>startProcess: '/act/process/extActProcess/startMutilProcess'</#if>
         },
         <#if bpm_flag>

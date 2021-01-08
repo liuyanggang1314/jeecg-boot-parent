@@ -44,7 +44,7 @@ import org.jeecg.common.aspect.annotation.AutoLog;
 
  /**
  * @Description: ${tableVo.ftlDescription}
- * @Author: jeecg-boot
+ * @Author: 刘杨刚
  * @Date:   ${.now?string["yyyy-MM-dd"]}
  * @Version: V1.0
  */
