@@ -3,3 +3,14 @@ server:
 spring:
   application:
     name: jeecg-cloud-demo
+jeecg:
+  xxljob:
+    enabled: true
+    adminAddresses: http://127.0.0.1:9080/xxl-job-admin
+    appname: ${spring.application.name}
+    accessToken: ''
+    address: 127.0.0.1:30008
+    ip: 127.0.0.1
+    port: 30008
+    logPath: logs/jeecg/job/jobhandler/
+    logRetentionDays: 30

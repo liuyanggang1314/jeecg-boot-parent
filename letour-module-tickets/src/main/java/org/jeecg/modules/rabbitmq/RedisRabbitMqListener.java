@@ -12,6 +12,12 @@ import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Header;
 
+/**
+ * @Description: 到达站
+ * @Author: 刘杨刚
+ * @Date: 2021-01-08
+ * @Version: V1.0
+ */
 @Slf4j
 @RabbitComponent(value = "redisListener")
 public class RedisRabbitMqListener extends BaseRabbiMqHandler<BaseMap> {
@@ -19,13 +25,26 @@ public class RedisRabbitMqListener extends BaseRabbiMqHandler<BaseMap> {
     private RedisUtil redisUtil;
 
     @RabbitListener(queues = "delRedisData")
-    public void onMessage(BaseMap baseMap, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) {
+    public void delRedisData(BaseMap baseMap, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) {
         super.onMessage(baseMap, deliveryTag, channel, new MqListener<BaseMap>() {
             @Override
             public void handler(BaseMap map, Channel channel) {
                 String name = map.get("name");
                 log.info("清除redis缓存:" + name);
                 redisUtil.del(name);
+            }
+        });
+    }
+
+    @RabbitListener(queues = "hdelRedisData")
+    public void hdelRedisData(BaseMap baseMap, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) {
+        super.onMessage(baseMap, deliveryTag, channel, new MqListener<BaseMap>() {
+            @Override
+            public void handler(BaseMap map, Channel channel) {
+                String name = map.get("name");
+                String item = map.get("item");
+                log.info("清除redis-hash缓存:" + name + " - " + item);
+                redisUtil.hdel(name, item);
             }
         });
     }

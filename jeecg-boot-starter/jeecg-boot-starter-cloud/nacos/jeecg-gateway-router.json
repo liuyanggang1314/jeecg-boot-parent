@@ -24,46 +24,14 @@
     "uri": "lb://jeecg-system"
   },
   {
-    "id": "jeecg-demo",
-    "order": 1,
-    "predicates": [
-      {
-        "name": "Path",
-        "args": {
-          "_genkey_0": "/mock/**",
-          "_genkey_1": "/test/**",
-          "_genkey_2": "/bigscreen/template1/**",
-          "_genkey_3": "/bigscreen/template2/**"
-        }
-      }
-    ],
-    "filters": [
-      {
-        "name": "Hystrix",
-        "args": {
-          "name": "default",
-          "fallbackUri": "forward:/demo/fallback"
-        }
-      },
-      {
-        "name": "RequestRateLimiter",
-        "args": {
-          "key-resolver": "#{@ipKeyResolver}",
-          "redis-rate-limiter.replenishRate": 20,
-          "redis-rate-limiter.burstCapacity": 20
-        }
-      }
-    ],
-    "uri": "lb://jeecg-demo"
-  },
-  {
     "id": "letour-tickets",
     "order": 1,
     "predicates": [
       {
         "name": "Path",
         "args": {
-          "_genkey_0": "/letour/**"
+          "_genkey_0": "/station/**",
+          "_genkey_1": "/buslist/**"
         }
       }
     ],
@@ -101,19 +69,5 @@
     ],
     "filters": [],
     "uri": "lb:ws://jeecg-system"
-  },
-  {
-    "id": "jeecg-demo-websocket",
-    "order": 3,
-    "predicates": [
-      {
-        "name": "Path",
-        "args": {
-          "_genkey_0": "/vxeSocket/**"
-        }
-      }
-    ],
-    "filters": [],
-    "uri": "lb:ws://jeecg-demo"
   }
 ]

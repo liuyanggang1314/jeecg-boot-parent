@@ -47,7 +47,7 @@ spring:
             #HTTP 的状态返回码
             statuses: BAD_GATEWAY,BAD_REQUEST
             #指定哪些方法的请求需要进行重试逻辑，默认值是 GET 方法
-            methods: GET,POST,PUT
+            methods: GET,POST
         - name: RequestRateLimiter
           args:
             # 使用SpEL名称引用Bean，与上面新建的RateLimiterConfig类中的bean的name相同

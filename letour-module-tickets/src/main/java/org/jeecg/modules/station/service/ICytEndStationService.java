@@ -13,7 +13,7 @@ import org.jeecg.modules.station.entity.CytEndStation;
 public interface ICytEndStationService extends IService<CytEndStation> {
 
     /**
-     * 更新到达站数据
+     * 更新到达站数据--盛威
      *
      * @return
      */

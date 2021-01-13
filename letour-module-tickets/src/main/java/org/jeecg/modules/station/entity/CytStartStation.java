@@ -1,6 +1,7 @@
 package org.jeecg.modules.station.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -59,6 +60,17 @@ public class CytStartStation implements Serializable {
     @Excel(name = "城市名称", width = 15)
     @ApiModelProperty(value = "城市名称")
     private java.lang.String city;
+    /**
+     * 拼音简称
+     */
+    @ApiModelProperty(value = "拼音简称")
+    private java.lang.String nameJianpin;
+    /**
+     * 城市名称拼音简写
+     */
+    @ApiModelProperty(value = "城市名称拼音简写")
+    @TableField(exist = false)
+    private java.lang.String py;
     /**
      * 是否可售
      */

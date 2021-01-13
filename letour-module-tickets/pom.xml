@@ -32,6 +32,12 @@
             <groupId>org.jeecgframework.boot</groupId>
             <artifactId>jeecg-boot-starter-rabbitmq</artifactId>
         </dependency>
+        <!--拼音-->
+        <dependency>
+            <groupId>io.github.biezhi</groupId>
+            <artifactId>TinyPinyin</artifactId>
+            <version>2.0.3.RELEASE</version>
+        </dependency>
     </dependencies>
     <!-- 打包插件 -->
     <build>

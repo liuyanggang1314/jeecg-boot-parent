@@ -13,7 +13,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface ICytStartStationService extends IService<CytStartStation> {
 
     /**
-     * 更新出发站数据
+     * 更新出发站数据--盛威
      * @return
      */
     Result<String> updateStartStation();

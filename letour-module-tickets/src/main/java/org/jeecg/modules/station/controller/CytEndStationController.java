@@ -19,8 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Description: 到达站
@@ -157,7 +156,7 @@ public class CytEndStationController extends JeecgController<CytEndStation, ICyt
     }
 
     /**
-     * 更新盛威到达站数据
+     * 更新到达站数据--盛威
      *
      * @return
      */
@@ -176,20 +175,35 @@ public class CytEndStationController extends JeecgController<CytEndStation, ICyt
     @AutoLog(value = "到达站-获取到达站数据")
     @ApiOperation(value = "到达站-获取到达站数据", notes = "到达站-获取到达站数据")
     @GetMapping(value = "/getEndStations")
-    public Result<?> getEndStations(@RequestParam String orgCode) {
-        Object ob = redisUtil.hget("letour-tickets-getEndStations", orgCode);
+    public Result<?> getEndStations(@RequestParam String departcityId) {
+        Object ob = redisUtil.hget("letour-tickets-getEndStations", departcityId);
         if (ob != null) {
             return Result.OK(ob);
         } else {
             List<CytEndStation> cytStartStations = cytEndStationService.list(new QueryWrapper<CytEndStation>()
                     .eq("is_can_sell", 1)
-                    .eq("orgcode", orgCode)
+                    .eq("departcity_id", departcityId)
                     .groupBy("name")
-                    .select("orgcode", "orgname", "name", "province", "name_jianpin", "reachstationcode", "city"));
-            if (cytStartStations.size() > 0) {
-                redisUtil.hset("letour-tickets-getEndStations", orgCode, cytStartStations);
+                    .orderByAsc("name_jianpin")
+                    .select("orgname", "name", "departcity_id", "CHAR(INTERVAL(CONV(HEX(left(convert( name using gbk ) collate gbk_chinese_ci,1)),16,10),0xB0A1,0xB0C5,0xB2C1,0xB4EE,0xB6EA,0xB7A2,0xB8C1,0xB9FE,0xBBF7,0xBBF7,0xBFA6,0xC0AC,0xC2E8,0xC4C3,0xC5B6,0xC5BE,0xC6DA,0xC8BB,0xC8F6,0xCBFA,0xCDDA,0xCDDA,0xCDDA,0xCEF4,0xD1B9,0xD4D1)+64) as py"));
+
+            List<CytEndStation> pyList = cytEndStationService.list(new QueryWrapper<CytEndStation>()
+                    .groupBy("py")
+                    .select("CHAR(INTERVAL(CONV(HEX(left(convert( name using gbk ) collate gbk_chinese_ci,1)),16,10),0xB0A1,0xB0C5,0xB2C1,0xB4EE,0xB6EA,0xB7A2,0xB8C1,0xB9FE,0xBBF7,0xBBF7,0xBFA6,0xC0AC,0xC2E8,0xC4C3,0xC5B6,0xC5BE,0xC6DA,0xC8BB,0xC8F6,0xCBFA,0xCDDA,0xCDDA,0xCDDA,0xCEF4,0xD1B9,0xD4D1)+64) as py"));
+            Map<String, Object> map = new LinkedHashMap<>();
+            for (CytEndStation py : pyList) {
+                List<CytEndStation> list = new ArrayList<>();
+                for (CytEndStation cytEndStation : cytStartStations) {
+                    if (py.getPy().equals(cytEndStation.getPy())) {
+                        list.add(cytEndStation);
+                    }
+                }
+                map.put(py.getPy(), list);
             }
-            return Result.OK(cytStartStations);
+            if (!map.isEmpty()) {
+                redisUtil.hset("letour-tickets-getEndStations", departcityId, map);
+            }
+            return Result.OK(map);
         }
     }
 }

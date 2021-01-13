@@ -12,7 +12,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class JeecgGatewayApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(JeecgGatewayApplication.class, args);
-        String userName = applicationContext.getEnvironment().getProperty("jeecg.test");
+        String userName = applicationContext.getEnvironment().getProperty("spring.application.name");
         System.err.println("user name :" +userName);
     }
 }

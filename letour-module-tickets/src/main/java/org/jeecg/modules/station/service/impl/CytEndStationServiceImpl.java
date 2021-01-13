@@ -1,5 +1,6 @@
 package org.jeecg.modules.station.service.impl;
 
+import cn.hutool.extra.pinyin.PinyinUtil;
 import cn.hutool.http.HttpRequest;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -62,11 +63,13 @@ public class CytEndStationServiceImpl extends ServiceImpl<CytEndStationMapper, C
                 cytEndStation.setOrgcode(orgcode);
                 cytEndStation.setName(name);
                 cytEndStation.setProvince(province);
-                cytEndStation.setNameJianpin(nameJianpin);
+                cytEndStation.setNameJianpin(PinyinUtil.getFirstLetter(name, ""));
                 cytEndStation.setReachstationcode(reachstationcode);
                 cytEndStation.setCity(city);
                 if (cytStartStation != null) {
+                    cytEndStation.setDepartorgName(cytStartStation.getDepartorgName());
                     cytEndStation.setOrgname(cytStartStation.getCity());
+                    cytEndStation.setDepartcityId(cytStartStation.getDepartcityId());
                 }
 
                 if (baseMapper.selectCount(new QueryWrapper<CytEndStation>()
