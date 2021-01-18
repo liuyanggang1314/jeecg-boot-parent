@@ -18,7 +18,7 @@ spring:
     port: 6379
 jeecg:
   xxljob:
-    enabled: true
+    enabled: false
     adminAddresses: http://127.0.0.1:9080/xxl-job-admin
     appname: ${spring.application.name}
     accessToken: ''

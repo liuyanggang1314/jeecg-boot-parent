@@ -64,11 +64,10 @@ public class CytStartStationServiceImpl extends ServiceImpl<CytStartStationMappe
             }
             BaseMap map = new BaseMap();
             map.put("name", "letour-tickets-getStartStations");
-            rabbitMqClient.sendMessage("delRedisData", map, 10000);
+            rabbitMqClient.sendMessage("delRedisData", map);
             return result.success("更新成功");
         } else {
-            result.error500(jsonObject.getString("resmsg"));
-            return result;
+            return result.error500(jsonObject.getString("resmsg"));
         }
     }
 }
