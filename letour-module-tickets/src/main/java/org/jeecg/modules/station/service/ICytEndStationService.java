@@ -17,6 +17,11 @@ public interface ICytEndStationService extends IService<CytEndStation> {
      *
      * @return
      */
-    Result<String> updateEndStation();
+    Result<?> updateEndStation();
 
+    /**
+     * 获取到达站数据
+     * @return
+     */
+    Result<?> getEndStations(String departcityId);
 }

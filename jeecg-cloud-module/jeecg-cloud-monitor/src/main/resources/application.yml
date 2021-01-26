@@ -6,7 +6,7 @@ spring:
   boot:
     admin:
       ui:
-        title: JeecgCloud监控中心
+        title: LetourCloud监控中心
       client:
         instance:
           metadata:

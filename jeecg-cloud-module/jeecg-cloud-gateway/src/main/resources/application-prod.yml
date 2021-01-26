@@ -1,12 +1,7 @@
-server:
-  #微服务端口
-  port: 7001
 spring:
-  application:
-    name: jeecg-system
   #redis 配置
   redis:
-    database: 0
+    database: 1
     # host: 127.0.0.1
     cluster:
       nodes: 192.168.0.28:6379,192.168.0.28:6380,192.168.0.28:6381,192.168.0.28:6382,192.168.0.28:6383,192.168.0.28:6384
@@ -19,15 +14,3 @@ spring:
         min-idle: 0     #最小等待连接中的数量,设 0 为没有限制
       shutdown-timeout: 100ms
     password:
-    # port: 6379
-jeecg:
-  xxljob:
-    enabled: false
-    adminAddresses: http://192.168.0.28:9080/xxl-job-admin
-    appname: ${spring.application.name}
-    accessToken: ''
-    address: 127.0.0.1:30007
-    ip: 127.0.0.1
-    port: 30007
-    logPath: logs/job/jobhandler/
-    logRetentionDays: 30

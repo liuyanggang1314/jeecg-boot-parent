@@ -10,6 +10,7 @@ import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.aspect.annotation.AutoLog;
 import org.jeecg.common.system.base.controller.JeecgController;
 import org.jeecg.common.system.query.QueryGenerator;
+import org.jeecg.common.util.RedisUtil;
 import org.jeecg.modules.seat.entity.CytSeatDetails;
 import org.jeecg.modules.seat.service.ICytSeatDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ import java.util.Arrays;
 @RequestMapping("/seat/cytSeatDetails")
 @Slf4j
 public class CytSeatDetailsController extends JeecgController<CytSeatDetails, ICytSeatDetailsService> {
+    @Autowired
+    private RedisUtil redisUtil;
     @Autowired
     private ICytSeatDetailsService cytSeatDetailsService;
 
@@ -153,10 +156,29 @@ public class CytSeatDetailsController extends JeecgController<CytSeatDetails, IC
     }
 
 
-    @ApiOperation(value = "mm", notes = "mm")
-    @GetMapping("/mmm")
-    public Result<?> mm(@RequestParam String departorgCode, @RequestParam String departDate, @RequestParam String scheduleCode) {
+    /**
+     * 更新座位数据
+     *
+     * @return
+     */
+    @AutoLog(value = "座位信息-更新座位数据")
+    @ApiOperation(value = "座位信息-更新座位数据", notes = "座位信息-更新座位数据")
+    @GetMapping(value = "/updateSeatDetails")
+    public Result<?> updateSeatDetails(@RequestParam String departorgCode, @RequestParam String departDate, @RequestParam String scheduleCode) {
         return cytSeatDetailsService.updateSeatDetail(departorgCode, departDate, scheduleCode);
+    }
+
+
+    /**
+     * 获取座位数据
+     *
+     * @return
+     */
+    @AutoLog(value = "座位信息-获取座位数据")
+    @ApiOperation(value = "座位信息-获取座位数据", notes = "座位信息-获取座位数据")
+    @GetMapping(value = "/getSeatDetails")
+    public Result<?> getSeatDetails(@RequestParam String departorgCode, @RequestParam String departDate, @RequestParam String scheduleCode) {
+        return cytSeatDetailsService.getSeatDetails(departorgCode,departDate,scheduleCode);
     }
 
 }

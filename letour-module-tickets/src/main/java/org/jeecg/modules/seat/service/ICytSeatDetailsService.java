@@ -1,8 +1,8 @@
 package org.jeecg.modules.seat.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.modules.seat.entity.CytSeatDetails;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * @Description: 座位信息
@@ -15,9 +15,11 @@ public interface ICytSeatDetailsService extends IService<CytSeatDetails> {
      * 更新座位信息--盛威
      *
      * @param departorgCode 发车站编码
-     * @param departDate 发车日期
-     * @param scheduleCode 班次代码
+     * @param departDate    发车日期
+     * @param scheduleCode  班次代码
      * @return
      */
-    Result<String> updateSeatDetail(String departorgCode, String departDate, String scheduleCode);
+    Result<?> updateSeatDetail(String departorgCode, String departDate, String scheduleCode);
+
+    Result<?> getSeatDetails(String departorgCode, String departDate, String scheduleCode);
 }

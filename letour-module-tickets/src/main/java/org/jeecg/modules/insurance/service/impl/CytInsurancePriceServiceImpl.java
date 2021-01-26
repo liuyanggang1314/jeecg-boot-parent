@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @Version: V1.0
  */
 @Service
-@DS("ticketapi")
+@DS("ticket")
 public class CytInsurancePriceServiceImpl extends ServiceImpl<CytInsurancePriceMapper, CytInsurancePrice> implements ICytInsurancePriceService {
 
 }

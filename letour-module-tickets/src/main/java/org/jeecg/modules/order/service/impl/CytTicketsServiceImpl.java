@@ -17,7 +17,7 @@ import java.util.List;
  * @Version: V1.0
  */
 @Service
-@DS("ticketapi")
+@DS("ticket")
 public class CytTicketsServiceImpl extends ServiceImpl<CytTicketsMapper, CytTickets> implements ICytTicketsService {
 	
 	@Autowired

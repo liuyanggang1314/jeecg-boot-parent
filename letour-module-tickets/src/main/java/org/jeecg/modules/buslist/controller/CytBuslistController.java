@@ -1,6 +1,5 @@
 package org.jeecg.modules.buslist.controller;
 
-import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -21,8 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 
 /**
  * @Description: 班次列表
@@ -165,8 +162,8 @@ public class CytBuslistController extends JeecgController<CytBuslist, ICytBuslis
      */
     @AutoLog(value = "班次列表-更新班次列表数据")
     @ApiOperation(value = "班次列表-更新班次列表数据", notes = "班次列表-更新班次列表数据")
-    @GetMapping(value = "/updateEndStation")
-    public Result<?> updateEndStation(@RequestParam String departDate) {
+    @GetMapping(value = "/updateBusList")
+    public Result<?> updateBusList(@RequestParam String departDate) {
         return cytBuslistService.updateBusList(departDate);
     }
 
@@ -179,21 +176,6 @@ public class CytBuslistController extends JeecgController<CytBuslist, ICytBuslis
     @ApiOperation(value = "到达站-获取班次列表数据", notes = "到达站-获取班次列表数据")
     @GetMapping(value = "/getBusList")
     public Result<?> getBusList(@RequestParam String departcityId, @RequestParam String endStationName, @RequestParam String departDate) {
-        Object ob = redisUtil.hget("letour-tickets-getBusList", departcityId + endStationName + departDate);
-        if (ob != null) {
-            return Result.OK(ob);
-        } else {
-            List<CytBuslist> cytStartStations = cytBuslistService.list(new QueryWrapper<CytBuslist>()
-                    .eq("departcity_id", departcityId)
-                    .eq("buslist_time", departDate)
-                    .eq("is_can_sell", 1)
-                    .eq("end_station_name", endStationName)
-                    .ge("depart_time", DateUtil.format(new Date(), "HH:mm"))
-                    .orderByAsc("depart_time"));
-            if (cytStartStations.size() > 0) {
-                redisUtil.hset("letour-tickets-getBusList", departcityId + endStationName + departDate, cytStartStations, 300);
-            }
-            return Result.OK(cytStartStations);
-        }
+       return cytBuslistService.getBusList(departcityId,endStationName,departDate);
     }
 }

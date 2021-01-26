@@ -33,3 +33,6 @@ spring:
         server-addr: @config.server-addr@
         watch:
           enabled: false
+    sentinel:
+      log:
+        dir: logs/csp/

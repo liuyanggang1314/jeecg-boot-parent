@@ -35,15 +35,15 @@ spring:
 
       datasource:
         master:
-          url: jdbc:mysql://127.0.0.1:3306/jeecg-boot?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+          url: jdbc:mysql://127.0.0.1:3306/letour-boot?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
           username: root
           password: PnZhBx2UKC7MDbcnoJwGcmJCeWRBQ7jxA2MeLdZGWvwH4w1juqCpiG1huR/F+xPsBr54VT3rWSRzD72uUeDhZA==
           driver-class-name: com.mysql.cj.jdbc.Driver
           druid:
             public-key: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAI5JlG5ZI26MoMaViN4rIvMV2XtHe6mXOdbc2inJmHljdTQ11kBjm4umId6nd4ktpbewzXLo3/i03szGBPyJKpcCAwEAAQ==
           # 多数据源配置
-        ticketapi:
-          url: jdbc:mysql://127.0.0.1:3306/ticketapi?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+        ticket:
+          url: jdbc:mysql://127.0.0.1:3306/ticket?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
           username: root
           password: PnZhBx2UKC7MDbcnoJwGcmJCeWRBQ7jxA2MeLdZGWvwH4w1juqCpiG1huR/F+xPsBr54VT3rWSRzD72uUeDhZA==
           driver-class-name: com.mysql.cj.jdbc.Driver

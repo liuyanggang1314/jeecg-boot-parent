@@ -21,10 +21,10 @@ spring:
       connection-test-query: SELECT 1
   #邮箱配置
   mail:
-    host: smtphz.qiye.163.com
-    port: 994
-    username: zhuwei@aboatedu.com
-    password: zwass1314
+    host: smtp.qq.com
+    port: 587
+    username: liuyanggang12345@qq.com
+    password: hfpdfellxdmsieie
     properties:
       mail:
         smtp:

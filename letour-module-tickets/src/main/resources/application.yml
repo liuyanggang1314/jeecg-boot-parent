@@ -1,31 +1,8 @@
 server:
-  port: 7004
+  port: 7002
 spring:
   application:
     name: letour-tickets
-  #redis 配置
-  redis:
-    database: 1
-    host: 127.0.0.1
-    lettuce:
-      pool:
-        max-active: 8   #最大连接数据库连接数,设 0 为没有限制
-        max-idle: 8     #最大等待连接中的数量,设 0 为没有限制
-        max-wait: -1ms  #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
-        min-idle: 0     #最小等待连接中的数量,设 0 为没有限制
-      shutdown-timeout: 100ms
-    password:
-    port: 6379
-jeecg:
-  xxljob:
-    enabled: false
-    adminAddresses: http://127.0.0.1:9080/xxl-job-admin
-    appname: ${spring.application.name}
-    accessToken: ''
-    address: 127.0.0.1:30007
-    ip: 127.0.0.1
-    port: 30007
-    logPath: logs/jeecg/job/jobhandler/
-    logRetentionDays: 30
 letour:
   uid: CTDLLTKJ
+  url: http://39.130.135.98:9011/openapi/2.0

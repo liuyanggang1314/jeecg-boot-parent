@@ -176,34 +176,7 @@ public class CytStartStationController extends JeecgController<CytStartStation, 
     @AutoLog(value = "出发站-获取出发站数据")
     @ApiOperation(value = "出发站-获取出发站数据", notes = "出发站-获取出发站数据")
     @GetMapping(value = "/getStartStations")
-    public Result<?> getStartStation() {
-        Object ob = redisUtil.get("letour-tickets-getStartStations");
-        if (ob != null) {
-            return Result.OK(ob);
-        } else {
-            List<CytStartStation> cytStartStations = cytStartStationService.list(new QueryWrapper<CytStartStation>()
-                    .eq("is_can_sell", 1)
-                    .groupBy("city")
-                    .select("departcity_id", "city", "CHAR(INTERVAL(CONV(HEX(left(convert( city using gbk ) collate gbk_chinese_ci,1)),16,10),0xB0A1,0xB0C5,0xB2C1,0xB4EE,0xB6EA,0xB7A2,0xB8C1,0xB9FE,0xBBF7,0xBBF7,0xBFA6,0xC0AC,0xC2E8,0xC4C3,0xC5B6,0xC5BE,0xC6DA,0xC8BB,0xC8F6,0xCBFA,0xCDDA,0xCDDA,0xCDDA,0xCEF4,0xD1B9,0xD4D1)+64) as py"));
-
-            List<CytStartStation> pyList = cytStartStationService.list(new QueryWrapper<CytStartStation>()
-                    .groupBy("py")
-                    .select("CHAR(INTERVAL(CONV(HEX(left(convert( city using gbk ) collate gbk_chinese_ci,1)),16,10),0xB0A1,0xB0C5,0xB2C1,0xB4EE,0xB6EA,0xB7A2,0xB8C1,0xB9FE,0xBBF7,0xBBF7,0xBFA6,0xC0AC,0xC2E8,0xC4C3,0xC5B6,0xC5BE,0xC6DA,0xC8BB,0xC8F6,0xCBFA,0xCDDA,0xCDDA,0xCDDA,0xCEF4,0xD1B9,0xD4D1)+64) as py"));
-            Map<String, Object> map = new LinkedHashMap<>();
-            for (CytStartStation py : pyList) {
-                List<CytStartStation> list = new ArrayList<>();
-                for (CytStartStation cytStartStation : cytStartStations) {
-                    if (py.getPy().equals(cytStartStation.getPy())) {
-                        list.add(cytStartStation);
-                    }
-                }
-                map.put(py.getPy(), list);
-            }
-
-            if (!map.isEmpty()) {
-                redisUtil.set("letour-tickets-getStartStations", map);
-            }
-            return Result.OK(map);
-        }
+    public Result<?> getStartStations() {
+        return cytStartStationService.getStartStations();
     }
 }

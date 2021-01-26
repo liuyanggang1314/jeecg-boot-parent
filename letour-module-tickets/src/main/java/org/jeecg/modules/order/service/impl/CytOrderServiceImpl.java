@@ -22,7 +22,7 @@ import java.util.List;
  * @Version: V1.0
  */
 @Service
-@DS("ticketapi")
+@DS("ticket")
 public class CytOrderServiceImpl extends ServiceImpl<CytOrderMapper, CytOrder> implements ICytOrderService {
 
 	@Autowired

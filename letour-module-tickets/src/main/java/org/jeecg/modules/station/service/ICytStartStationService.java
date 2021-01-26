@@ -16,6 +16,11 @@ public interface ICytStartStationService extends IService<CytStartStation> {
      * 更新出发站数据--盛威
      * @return
      */
-    Result<String> updateStartStation();
+    Result<?> updateStartStation();
 
+    /**
+     * 获取出发站数据
+     * @return
+     */
+    Result<?> getStartStations();
 }

@@ -15,7 +15,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
  * @Version: V1.0
  */
 @Service
-@DS("ticketapi")
+@DS("ticket")
 public class CytInsuranceInfoServiceImpl extends ServiceImpl<CytInsuranceInfoMapper, CytInsuranceInfo> implements ICytInsuranceInfoService {
 
 }

@@ -4,10 +4,7 @@ import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
-
-import java.io.IOException;
+import org.apache.commons.codec.binary.Base64;
 
 /**
  * @ClassName RsaUtil
@@ -17,7 +14,7 @@ import java.io.IOException;
  * @Version 1.0
  */
 public class RsaUtil {
-    private static String PRIVATEKEY = "MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBANL8FKQAVYsAMDbw\n" +
+    private static final String PRIVATEKEY = "MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBANL8FKQAVYsAMDbw\n" +
             "YErrH+UPN3nyj7NcZy/XsrMmcZP5aIZI4gqFSWZT9DExr4c/y1Md+ttGIKkAW3NJ\n" +
             "nPzDGncDy/Mjl/zyopokkZcPij8X29EgzqlgnjSA0hbEyAHL2Z5LFyU0sUtT7Gob\n" +
             "bSVF9Epq24L7tJzMLE1obeFlNQatAgMBAAECgYAU8RJ3aNUU0/L1MQzNwuLKkKUY\n" +
@@ -40,9 +37,8 @@ public class RsaUtil {
      */
     public static String encrypt(String params) {
         RSA rsa = new RSA(PRIVATEKEY, null);
-        byte[] encrypt = rsa.encrypt(params, KeyType.PrivateKey);
-        BASE64Encoder encoder = new BASE64Encoder();
-        return encoder.encodeBuffer(encrypt).replaceAll("\r\n", "");
+        byte[] encrypt = rsa.encrypt(StrUtil.bytes(params, CharsetUtil.CHARSET_UTF_8), KeyType.PrivateKey);
+        return Base64.encodeBase64String(encrypt);
     }
 
     /**
@@ -53,14 +49,8 @@ public class RsaUtil {
      */
     public static String desEncrypt(String str) {
         RSA rsa = new RSA(PRIVATEKEY, null);
-        BASE64Decoder decoder = new BASE64Decoder();
-        byte[] dncrypt = new byte[0];
-        try {
-            dncrypt = decoder.decodeBuffer(str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        byte[] dncrypt2 = rsa.decrypt(dncrypt, KeyType.PrivateKey);
-        return StrUtil.str(dncrypt2, CharsetUtil.CHARSET_UTF_8);
+        byte[] aByte = Base64.decodeBase64(str);
+        byte[] decrypt = rsa.decrypt(aByte, KeyType.PrivateKey);
+        return StrUtil.str(decrypt, CharsetUtil.CHARSET_UTF_8);
     }
 }

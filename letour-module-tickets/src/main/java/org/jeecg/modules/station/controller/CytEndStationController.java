@@ -176,34 +176,6 @@ public class CytEndStationController extends JeecgController<CytEndStation, ICyt
     @ApiOperation(value = "到达站-获取到达站数据", notes = "到达站-获取到达站数据")
     @GetMapping(value = "/getEndStations")
     public Result<?> getEndStations(@RequestParam String departcityId) {
-        Object ob = redisUtil.hget("letour-tickets-getEndStations", departcityId);
-        if (ob != null) {
-            return Result.OK(ob);
-        } else {
-            List<CytEndStation> cytStartStations = cytEndStationService.list(new QueryWrapper<CytEndStation>()
-                    .eq("is_can_sell", 1)
-                    .eq("departcity_id", departcityId)
-                    .groupBy("name")
-                    .orderByAsc("name_jianpin")
-                    .select("orgname", "name", "departcity_id", "CHAR(INTERVAL(CONV(HEX(left(convert( name using gbk ) collate gbk_chinese_ci,1)),16,10),0xB0A1,0xB0C5,0xB2C1,0xB4EE,0xB6EA,0xB7A2,0xB8C1,0xB9FE,0xBBF7,0xBBF7,0xBFA6,0xC0AC,0xC2E8,0xC4C3,0xC5B6,0xC5BE,0xC6DA,0xC8BB,0xC8F6,0xCBFA,0xCDDA,0xCDDA,0xCDDA,0xCEF4,0xD1B9,0xD4D1)+64) as py"));
-
-            List<CytEndStation> pyList = cytEndStationService.list(new QueryWrapper<CytEndStation>()
-                    .groupBy("py")
-                    .select("CHAR(INTERVAL(CONV(HEX(left(convert( name using gbk ) collate gbk_chinese_ci,1)),16,10),0xB0A1,0xB0C5,0xB2C1,0xB4EE,0xB6EA,0xB7A2,0xB8C1,0xB9FE,0xBBF7,0xBBF7,0xBFA6,0xC0AC,0xC2E8,0xC4C3,0xC5B6,0xC5BE,0xC6DA,0xC8BB,0xC8F6,0xCBFA,0xCDDA,0xCDDA,0xCDDA,0xCEF4,0xD1B9,0xD4D1)+64) as py"));
-            Map<String, Object> map = new LinkedHashMap<>();
-            for (CytEndStation py : pyList) {
-                List<CytEndStation> list = new ArrayList<>();
-                for (CytEndStation cytEndStation : cytStartStations) {
-                    if (py.getPy().equals(cytEndStation.getPy())) {
-                        list.add(cytEndStation);
-                    }
-                }
-                map.put(py.getPy(), list);
-            }
-            if (!map.isEmpty()) {
-                redisUtil.hset("letour-tickets-getEndStations", departcityId, map);
-            }
-            return Result.OK(map);
-        }
+        return cytEndStationService.getEndStations(departcityId);
     }
 }
